@@ -1,0 +1,49 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cambryzek_docs}
+
+%% typical usage:
+%   \documentclass[12pt]{article}
+%   \usepackage[margin=1in]{geometry}           % or whatever geometry this document needs
+%   \usepackage{newpxtext,newpxmath}            % or \usepackage{mathptmx} — pick per document
+%   \usepackage{cambryzek_docs}
+
+\PassOptionsToPackage{shortlabels}{enumitem}
+
+\RequirePackage{cambryzek}
+
+%% packages
+\RequirePackage{amsmath}
+\RequirePackage{tikz}
+\RequirePackage{titlesec}
+\RequirePackage{setspace}
+\RequirePackage{hanging}
+\RequirePackage{xurl}
+
+%% macros
+\DeclareMathOperator{\Span}{\mathrm{Span}}
+\DeclareMathOperator{\im}{\mathrm{im}}
+\DeclareMathOperator{\Sym}{\mathrm{Sym}}
+\DeclareMathOperator{\Hom}{\mathrm{Hom}}
+\DeclareMathOperator{\diag}{\mathrm{diag}}
+
+%% formatting
+\hyphenpenalty=1000
+\exhyphenpenalty=1000
+\tikzstyle{ball} = [circle,shading=ball, ball color=black,
+    minimum size=1mm,inner sep=1.3pt]
+\setlist[enumerate]{leftmargin=*,label=(\alph*)}
+\titleformat{\section}[block]{\normalfont\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1em}{0em}
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=black,
+    citecolor=black
+}
+\doublespacing
+\parskip=0.0in
+\parindent=0.3in
+
+\endinput

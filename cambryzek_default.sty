@@ -1,0 +1,58 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cambryzek_default}
+
+%% typical usage:
+%   \documentclass{article}
+%   \usepackage[a4paper, total={5.5in, 8in}]{geometry}   % pick per document
+%   \usepackage{cambryzek_default}
+%   \graphicspath{{figs/}}                               % must be after the style import
+%   \title{...} \author{...} \date{...}
+
+\RequirePackage{cambryzek}
+
+%% fonts
+\RequirePackage[scaled=0.82]{FiraMono} % fira mono for monospace fonts
+\newcommand{\headingfont}{\fontfamily{zpltlf}\selectfont} % palatino font (newpxtext) for chapter/section/subsection headings
+
+%% formatting
+\hyphenpenalty=1000
+\exhyphenpenalty=1000
+
+%% title formatting
+\let\oldtitle\title
+\renewcommand{\title}[1]{\oldtitle{\headingfont #1}\normalfont}
+
+\makeatletter
+
+%% section title formatting
+\let\oldsection\section
+\renewcommand{\section}{\@ifstar\rt@sectionstar\rt@sectionnostar}
+\newcommand{\rt@sectionnostar}[1]{\oldsection{\headingfont #1}\normalfont}
+\newcommand{\rt@sectionstar}[1]{\oldsection*{\headingfont #1}\normalfont}
+
+%% subsection title formatting
+\let\oldsubsection\subsection
+\renewcommand{\subsection}{\@ifstar\rt@subsectionstar\rt@subsectionnostar}
+\newcommand{\rt@subsectionnostar}[1]{\oldsubsection{\headingfont #1}\normalfont}
+\newcommand{\rt@subsectionstar}[1]{\oldsubsection*{\headingfont #1}\normalfont}
+
+%% subsubsection title formatting
+\newcommand\rt@subsubsection{\@startsection{subsubsection}{3}{\z@}
+                                     {3.25ex \@plus 1ex \@minus .2ex}
+                                     {-1em}
+                                     {\normalfont\normalsize\bfseries\itshape\headingfont}}
+
+\RenewDocumentCommand{\subsubsection}{s o m}{
+  \IfBooleanTF{#1}
+    {\rt@subsubsection*{#3.}}
+    {\IfValueTF{#2}{\rt@subsubsection[#2]{#3.}}{\rt@subsubsection{#3.}}}
+}
+
+\makeatother
+
+\hypersetup{
+  colorlinks=true,
+  allcolors=LinkBlue
+}
+
+\endinput

@@ -1,0 +1,308 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cambryzek}
+
+%% typical usage:
+%   \documentclass{article}
+%   \usepackage{cambryzek}
+
+%% if using, load biblatex before this package:
+%   \documentclass{...}
+%   \makeatletter\def\blx@noerroretextools{}\makeatother
+%   \usepackage[...]{biblatex}
+%   \addbibresource{...}
+%   \usepackage{cambryzek}
+
+%% colour
+\RequirePackage{xcolor}
+\definecolor{LinkBlue}{HTML}{0031b5}
+
+%% graphics / math
+\RequirePackage{graphicx}
+\RequirePackage{mathtools}
+
+\let\Bbbk\relax
+\RequirePackage{amssymb}
+\let\openbox\relax
+\RequirePackage{amsthm}
+\RequirePackage{bm}
+\RequirePackage{upgreek}
+\RequirePackage{siunitx}
+\sisetup{per-mode=symbol}
+
+%% formatting
+\RequirePackage[final]{microtype}
+\RequirePackage{enumitem}
+
+\PassOptionsToPackage{hyphens}{url}
+\RequirePackage{url}
+
+%% make sure lines stay in groups of 3+
+\widowpenalties=3 10000 10000 150
+\clubpenalties=3 10000 10000 150
+\displaywidowpenalty=10000
+
+%% set word break penalties
+\hyphenpenalty=500
+\exhyphenpenalty=500
+
+%% prevent footnotes from breaking across pages
+\interfootnotelinepenalty=10000
+
+%% captions
+\RequirePackage{subcaption}
+\RequirePackage{caption}
+\captionsetup{font=small}
+
+%% footnotes
+\RequirePackage[bottom]{footmisc} % put footnotes below bottom images
+\makeatletter
+\newlength{\fnlabelwidth}
+\setlength{\fnlabelwidth}{0.7em} % distance between number and text
+\renewcommand\@makefntext[1]{%
+  \noindent
+  \hangindent=\fnlabelwidth
+  \hangafter=1
+  \makebox[\fnlabelwidth][l]{\@makefnmark}%
+  #1
+}
+\makeatother
+
+%%% references / links
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{footnotebackref}
+\makeatletter
+\renewcommand\@makefnmark{\mbox{\textsuperscript{\normalfont\hyperref[\BackrefFootnoteTag]{\@thefnmark}}}}
+\makeatother
+\renewcommand{\eqref}[1]{\hyperref[#1]{(\ref*{#1})}}    % makes the whole eqref reference clickable
+
+\RequirePackage[capitalise]{cleveref}
+
+%% cref names
+\crefname{figure}{Fig.}{Figs.}
+\Crefname{figure}{Figure}{Figures}
+\crefname{table}{Tab.}{Tabs.}
+\Crefname{table}{Table}{Tables}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\crefname{chapter}{Ch.}{Chs.}
+\Crefname{chapter}{Chapter}{Chapters}
+\crefname{appendix}{App.}{Apps.}
+\Crefname{appendix}{Appendix}{Appendices}
+\crefname{theorem}{Thm.}{Thms.}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{definition}{Def.}{Defs.}
+\Crefname{definition}{Definition}{Definitions}
+
+%% cref formats
+\crefformat{figure}{#2\textcolor{black}{Fig.}~#1#3}
+\Crefformat{figure}{#2\textcolor{black}{Figure}~#1#3}
+\crefformat{table}{#2\textcolor{black}{Tab.}~#1#3}
+\Crefformat{table}{#2\textcolor{black}{Table}~#1#3}
+\crefformat{section}{#2\textcolor{black}{Sec.}~#1#3}
+\Crefformat{section}{#2\textcolor{black}{Section}~#1#3}
+\crefformat{chapter}{#2\textcolor{black}{Ch.}~#1#3}
+\Crefformat{chapter}{#2\textcolor{black}{Chapter}~#1#3}
+\crefformat{appendix}{#2\textcolor{black}{App.}~#1#3}
+\Crefformat{appendix}{#2\textcolor{black}{Appendix}~#1#3}
+\crefformat{theorem}{#2\textcolor{black}{Thm.}~#1#3}
+\Crefformat{theorem}{#2\textcolor{black}{Theorem}~#1#3}
+\crefformat{definition}{#2\textcolor{black}{Def.}~#1#3}
+\Crefformat{definition}{#2\textcolor{black}{Definition}~#1#3}
+\crefformat{equation}{#2\textcolor{black}{Eq.}~(#1)#3}
+\Crefformat{equation}{#2\textcolor{black}{Equation}~(#1)#3}
+
+%% multi-reference formats (\cref{a,b,c})
+\crefmultiformat{figure}%
+  {#2\textcolor{black}{Figs.}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\Crefmultiformat{figure}%
+  {#2\textcolor{black}{Figures}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\crefmultiformat{table}%
+  {#2\textcolor{black}{Tabs.}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\Crefmultiformat{table}%
+  {#2\textcolor{black}{Tables}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\crefmultiformat{section}%
+  {#2\textcolor{black}{Secs.}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\Crefmultiformat{section}%
+  {#2\textcolor{black}{Sections}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\crefmultiformat{chapter}%
+  {#2\textcolor{black}{Chs.}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\Crefmultiformat{chapter}%
+  {#2\textcolor{black}{Chapters}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\crefmultiformat{appendix}%
+  {#2\textcolor{black}{Apps.}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\Crefmultiformat{appendix}%
+  {#2\textcolor{black}{Appendices}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\crefmultiformat{theorem}%
+  {#2\textcolor{black}{Thms.}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\Crefmultiformat{theorem}%
+  {#2\textcolor{black}{Theorems}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\crefmultiformat{definition}%
+  {#2\textcolor{black}{Defs.}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\Crefmultiformat{definition}%
+  {#2\textcolor{black}{Definitions}~#1#3}{\crefpairconjunction#2#1#3}%
+  {\crefmiddleconjunction#2#1#3}{\creflastconjunction#2#1#3}
+\crefmultiformat{equation}%
+  {#2\textcolor{black}{Eqs.}~(#1)#3}{\crefpairconjunction#2(#1)#3}%
+  {\crefmiddleconjunction#2(#1)#3}{\creflastconjunction#2(#1)#3}
+\Crefmultiformat{equation}%
+  {#2\textcolor{black}{Equations}~(#1)#3}{\crefpairconjunction#2(#1)#3}%
+  {\crefmiddleconjunction#2(#1)#3}{\creflastconjunction#2(#1)#3}
+
+%% range formats (\crefrange{a}{b})
+\crefrangeformat{figure}{#3\textcolor{black}{Figs.}~#1#4\crefrangeconjunction#5#2#6}
+\Crefrangeformat{figure}{#3\textcolor{black}{Figures}~#1#4\crefrangeconjunction#5#2#6}
+\crefrangeformat{table}{#3\textcolor{black}{Tabs.}~#1#4\crefrangeconjunction#5#2#6}
+\Crefrangeformat{table}{#3\textcolor{black}{Tables}~#1#4\crefrangeconjunction#5#2#6}
+\crefrangeformat{section}{#3\textcolor{black}{Secs.}~#1#4\crefrangeconjunction#5#2#6}
+\Crefrangeformat{section}{#3\textcolor{black}{Sections}~#1#4\crefrangeconjunction#5#2#6}
+\crefrangeformat{chapter}{#3\textcolor{black}{Chs.}~#1#4\crefrangeconjunction#5#2#6}
+\Crefrangeformat{chapter}{#3\textcolor{black}{Chapters}~#1#4\crefrangeconjunction#5#2#6}
+\crefrangeformat{appendix}{#3\textcolor{black}{Apps.}~#1#4\crefrangeconjunction#5#2#6}
+\Crefrangeformat{appendix}{#3\textcolor{black}{Appendices}~#1#4\crefrangeconjunction#5#2#6}
+\crefrangeformat{theorem}{#3\textcolor{black}{Thms.}~#1#4\crefrangeconjunction#5#2#6}
+\Crefrangeformat{theorem}{#3\textcolor{black}{Theorems}~#1#4\crefrangeconjunction#5#2#6}
+\crefrangeformat{definition}{#3\textcolor{black}{Defs.}~#1#4\crefrangeconjunction#5#2#6}
+\Crefrangeformat{definition}{#3\textcolor{black}{Definitions}~#1#4\crefrangeconjunction#5#2#6}
+\crefrangeformat{equation}{#3\textcolor{black}{Eqs.}~(#1)#4\crefrangeconjunction#5(#2)#6}
+\Crefrangeformat{equation}{#3\textcolor{black}{Equations}~(#1)#4\crefrangeconjunction#5(#2)#6}
+
+
+\AtBeginDocument{\renewcommand{\creflastconjunction}{, and\nobreakspace}}
+
+\makeatletter\let\ORG@forlistloop\forlistloop\makeatother
+\RequirePackage{autonum}
+\makeatletter\let\forlistloop\ORG@forlistloop\makeatother
+
+\makeatletter
+\autonum@generatePatchedReferenceCSL{Cref}
+\autonum@generatePatchedReferenceCSL{labelcref}
+\NewCommandCopy{\autonum@origcrefrange}{\crefrange}
+\RenewDocumentCommand{\crefrange}{s m m}{
+  \skipInPDFTOC{\autonum@markLabelAsReferenced{#2}\autonum@markLabelAsReferenced{#3}}%
+  \IfBooleanTF{#1}{\autonum@origcrefrange*{#2}{#3}}{\autonum@origcrefrange{#2}{#3}}%
+}
+\NewCommandCopy{\autonum@origCrefrange}{\Crefrange}
+\RenewDocumentCommand{\Crefrange}{s m m}{
+  \skipInPDFTOC{\autonum@markLabelAsReferenced{#2}\autonum@markLabelAsReferenced{#3}}%
+  \IfBooleanTF{#1}{\autonum@origCrefrange*{#2}{#3}}{\autonum@origCrefrange{#2}{#3}}%
+}
+\makeatother
+
+%%% macros
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\ve}{\varepsilon}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+
+\newcommand{\rd}{\hspace{0.05cm}\mathrm{d}}
+\newcommand{\us}{\underline{ }} % underscore
+
+%% vectors
+\makeatletter
+\newcommand{\vb}[1]{
+  \edef\vb@name{\expandafter\@gobble\string#1}
+  \ifcsname up\vb@name\endcsname
+    \boldsymbol{\csname up\vb@name\endcsname}
+  \else
+    \boldsymbol{\mathbf{#1}}
+  \fi
+}
+
+%% greek
+\DeclareMathAlphabet{\bbgreek}{U}{bbold}{m}{n}
+\@namedef{mb@ugreek@Gamma}{}\@namedef{mb@ugreek@Delta}{}\@namedef{mb@ugreek@Theta}{}
+\@namedef{mb@ugreek@Lambda}{}\@namedef{mb@ugreek@Xi}{}\@namedef{mb@ugreek@Pi}{}
+\@namedef{mb@ugreek@Sigma}{}\@namedef{mb@ugreek@Upsilon}{}\@namedef{mb@ugreek@Phi}{}
+\@namedef{mb@ugreek@Psi}{}\@namedef{mb@ugreek@Omega}{}
+
+%% matrices
+\newcommand{\mb}[1]{
+  \edef\vb@name{\expandafter\@gobble\string#1}
+  \ifcsname mb@ugreek@\vb@name\endcsname
+    \bbgreek{#1}
+  \else\ifcsname up\vb@name\endcsname
+    \boldsymbol{\csname up\vb@name\endcsname}
+  \else
+    \boldsymbol{\mathbb{#1}}
+  \fi\fi
+}
+\makeatother
+
+%% brackets and symbols
+\newcommand{\complex}[1]{\widetilde{#1}}
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\bracket}[1]{\left[#1\right]}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\avg}[1]{\langle #1 \rangle}
+\newcommand{\um}{\upmu\mathrm{m}}
+\providecommand{\ohm}{\Omega}
+\newcommand{\pr}{^\prime}
+\newcommand{\lag}{\mathcal{L}} % lagrangian
+\newcommand{\ham}{\mathcal{H}} % hamiltonian
+
+\newcommand{\appropto}{\mathrel{\vcenter{
+  \offinterlineskip\halign{\hfil$##$\cr
+    \propto\cr\noalign{\kern2pt}\sim\cr\noalign{\kern-2pt}}}}}
+
+%% derivatives
+\newcommand{\dd}[2]{\frac{\rd #1}{\rd #2}}
+\newcommand{\ddt}[2]{\frac{\rd^2 #1}{\rd #2^2}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdt}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\diff}[1]{\frac{\rd}{\rd #1}}
+\newcommand{\ddiff}[1]{\frac{\rd^2}{\rd #1^2}}
+\newcommand{\pdiff}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\pddiff}[1]{\frac{\partial^2}{\partial #1^2}}
+
+%% integrals
+\newcommand{\intinf}{\int_{-\infty}^{\infty}}
+\newcommand{\intzinf}{\int_{0}^{\infty}}
+
+%% unit vectors
+\makeatletter
+\DeclareRobustCommand{\uvec}[1]{{
+  \ifcat\relax\noexpand#1
+    \edef\uvec@name{\expandafter\@gobble\string#1}
+    \ifcsname up\uvec@name\endcsname
+      \bm{\hat{\csname up\uvec@name\endcsname}}
+    \else
+      \bm{\hat{#1}}
+    \fi
+  \else
+    \ifcsname uvec#1\endcsname
+      \csname uvec#1\endcsname
+    \else
+      \bm{\hat{\mathbf{#1}}}
+    \fi
+  \fi
+}}
+\makeatother
+
+%% quantum
+\newcommand{\bra}[1]{\langle #1 \rvert}
+\newcommand{\ket}[1]{\lvert #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 \vert #2 \rangle}
+
+%% notes/comments
+\newcommand{\note}[1]{\textcolor{LinkBlue}{\textless{}#1\textgreater{}}}
+\newcommand{\comment}[1]{}
+
+\endinput
