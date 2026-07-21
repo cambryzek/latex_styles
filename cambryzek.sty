@@ -220,9 +220,11 @@
   \edef\vb@name{\expandafter\@gobble\string#1}
   \ifcsname up\vb@name\endcsname
     \boldsymbol{\csname up\vb@name\endcsname}
+  \else\ifcsname b\vb@name\endcsname
+    \csname b\vb@name\endcsname
   \else
     \boldsymbol{\mathbf{#1}}
-  \fi
+  \fi\fi
 }
 
 %% greek
@@ -297,6 +299,16 @@
   \fi
 }}
 \makeatother
+
+%% script r from griffiths
+\DeclareFontFamily{U}{griff}{}
+\DeclareFontShape{U}{griff}{m}{n}{<-> s*[2.2] griffm}{}
+\DeclareFontShape{U}{griff}{b}{n}{<-> s*[2.2] griffb}{}
+\DeclareSymbolFont{griff}{U}{griff}{m}{n}
+\SetSymbolFont{griff}{bold}{U}{griff}{b}{n}
+\DeclareMathSymbol{\rcurs}{\mathalpha}{griff}{"72}
+\DeclareBoldMathCommand{\brcurs}{\rcurs}
+\newcommand*\hrcurs{\hat{\brcurs}}
 
 %% quantum
 \newcommand{\bra}[1]{\langle #1 \rvert}
