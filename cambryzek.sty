@@ -220,11 +220,9 @@
   \edef\vb@name{\expandafter\@gobble\string#1}
   \ifcsname up\vb@name\endcsname
     \boldsymbol{\csname up\vb@name\endcsname}
-  \else\ifcsname b\vb@name\endcsname
-    \csname b\vb@name\endcsname
   \else
     \boldsymbol{\mathbf{#1}}
-  \fi\fi
+  \fi
 }
 
 %% greek
