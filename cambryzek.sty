@@ -12,6 +12,9 @@
 %   \addbibresource{...}
 %   \usepackage{cambryzek}
 
+%% encoding
+\RequirePackage[T1]{fontenc}
+
 %% colour
 \RequirePackage{xcolor}
 \definecolor{LinkBlue}{HTML}{0031b5}
@@ -35,6 +38,7 @@
 
 \PassOptionsToPackage{hyphens}{url}
 \RequirePackage{url}
+\RequirePackage{xurl} % allow urls to break lines
 
 %% make sure lines stay in groups of 3+
 \widowpenalties=3 10000 10000 150
