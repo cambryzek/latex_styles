@@ -40,6 +40,9 @@
 \RequirePackage{url}
 \RequirePackage{xurl} % allow urls to break lines
 
+\usepackage{seqsplit} % allow texttt to break lines
+\newcommand{\monospace}[1]{\texttt{\seqsplit{#1}}}
+
 %% make sure lines stay in groups of 3+
 \widowpenalties=3 10000 10000 150
 \clubpenalties=3 10000 10000 150
